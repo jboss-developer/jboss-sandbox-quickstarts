@@ -49,7 +49,7 @@
     <version.jboss.maven.plugin>7.4.Final</version.jboss.maven.plugin>
 
     <!-- Define the version of the JBoss EAP BOMs we want to import to specify tested stacks. -->
-    <version.jboss.bom.eap>1.0.7.Final</version.jboss.bom.eap>
+    <version.jboss.bom.sandbox>1.0.0-SNAPSHOT</version.jboss.bom.sandbox>
 
     <!-- Define the version of the JBoss WFK BOMs we want to import to specify tested stacks. -->
     <version.jboss.bom.wfk>2.4.0-build-5</version.jboss.bom.wfk>
@@ -79,9 +79,9 @@
       </dependency>
 
       <dependency>
-        <groupId>org.jboss.bom</groupId>
+        <groupId>org.jboss.bom.sandbox</groupId>
         <artifactId>jboss-javaee-6.0-with-security</artifactId>
-        <version>${version.jboss.bom.eap}</version>
+        <version>${version.jboss.bom.sandbox}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
