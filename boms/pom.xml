@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.jboss.bom.sandbox</groupId>
+    <artifactId>jboss-sandbox-bom-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+
+    <name>JBoss Sandbox BOM Parent</name>
+    <description>Dependency Management BOM Parent</description>
+
+    <url>http://www.jboss.org</url>
+    <issueManagement>
+        <system>JIRA</system>
+        <url>https://issues.jboss.org/</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:git@github.com:jboss-developer/jboss-sandbox-boms.git</connection>
+        <developerConnection>scm:git:git@github.com:jboss-developer/jboss-sandbox-boms.git</developerConnection>
+        <url>http://github.com/jboss-developer/jboss-sandbox-boms</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>jboss.org</id>
+            <name>JBoss.org Community</name>
+            <organization>JBoss.org</organization>
+            <organizationUrl>http://www.jboss.org</organizationUrl>
+        </developer>
+    </developers>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <properties>
+      <!-- ############    E   A   P    P r o d u c t   V e r s i o n s  ############# -->
+        
+        <!-- JBoss projects -->
+        <version.org.jboss.security.negotiation>2.2.2.Final-redhat-1</version.org.jboss.security.negotiation>
+        <version.org.jboss.spec.jboss.javaee.6.0>3.0.2.Final-redhat-4</version.org.jboss.spec.jboss.javaee.6.0>
+
+        <!-- Picketlink -->
+        <version.org.picketlink>2.5.2.Final</version.org.picketlink>
+        
+        <!-- Drools -->
+        <version.org.jboss.drools>5.5.0.Final</version.org.jboss.drools>
+                
+        <!-- Repository Deployment URLs -->
+        <jboss.releases.repo.url>
+            https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/
+        </jboss.releases.repo.url>
+        <jboss.snapshots.repo.url>
+            https://repository.jboss.org/nexus/content/repositories/snapshots/
+        </jboss.snapshots.repo.url>
+    </properties>
+
+    <modules>
+        <module>jboss-javaee-6.0-with-drools</module>
+        <module>jboss-javaee-6.0-with-security</module>
+    </modules>
+
+    <distributionManagement>
+        <repository>
+            <id>jboss-releases-repository</id>
+            <name>JBoss Releases Repository</name>
+            <url>${jboss.releases.repo.url}</url>
+        </repository>
+        <snapshotRepository>
+            <id>jboss-snapshots-repository</id>
+            <name>JBoss Snapshots Repository</name>
+            <url>${jboss.snapshots.repo.url}</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.4</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

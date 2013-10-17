@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
@@ -15,13 +15,12 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.jboss.quickstarts.eap</groupId>
+  <groupId>org.jboss.quickstarts.sandbox</groupId>
   <artifactId>jboss-as-picketlink-authentication-http-basic</artifactId>
-  <version>6.2.0-redhat-SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>JBoss EAP Quickstart: picketlink-authentication-http-basic</name>
   <description>JBoss EAP Quickstart: PicketLink HTTP Basic Authentication</description>
@@ -48,7 +47,7 @@
 
     <!-- Define the version of the JBoss BOMs we want to import to specify 
       tested stacks. -->
-    <version.jboss.bom.eap>6.2.0-build-5</version.jboss.bom.eap>
+    <version.jboss.bom.sandbox>1.0.0-SNAPSHOT</version.jboss.bom.sandbox>
     <version.war.plugin>2.1.1</version.war.plugin>
 
     <!-- maven-compiler-plugin -->
@@ -60,9 +59,9 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.jboss.bom.eap</groupId>
+        <groupId>org.jboss.bom.sandbox</groupId>
         <artifactId>jboss-javaee-6.0-with-security</artifactId>
-        <version>${version.jboss.bom.eap}</version>
+        <version>${version.jboss.bom.sandbox}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
