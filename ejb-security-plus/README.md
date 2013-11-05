@@ -6,7 +6,7 @@ Technologies: EJB, Security
 Summary: Demonstrates how interceptors can be used to supply additional information to be used for authentication before EJB calls.
 Target Product: EAP
 Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>
+Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>
 
 What is it?
 -----------

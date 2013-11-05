@@ -5,7 +5,7 @@ Level: Intermediate
 Technologies: AngularJS, Topcoat, CDI, JPA, EJB, JPA, JAX-RS, BV
 Summary: An example that incorporates multiple technologies
 Target Product: Sandbox
-Source: <https://github.com/jboss-jdf/jboss-as-quickstart>
+Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>
 
 What is it?
 -----------
