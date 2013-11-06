@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
     Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
@@ -19,12 +19,12 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.jboss.quickstarts.eap</groupId>
+    <groupId>org.jboss.quickstarts.sandbox</groupId>
     <artifactId>jboss-ejb-security-propagation-interceptor</artifactId>
-    <version>6.2.0-redhat-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>JBoss EAP Quickstart: ejb-security-propagation - interceptor-module</name>
-    <description>JBoss AS Quickstarts: EJB Propagation Security Interceptor Module</description>
+    <name>JBoss Sandbox Quickstart: ejb-security-propagation - interceptor-module</name>
+    <description>JBoss Sandbox Quickstart: EJB Propagation Security Interceptor Module</description>
 
     <url>http://jboss.org/jbossas</url>
     <licenses>

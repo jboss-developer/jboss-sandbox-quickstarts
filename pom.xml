@@ -169,6 +169,8 @@
                 <module>picketlink-authorization-idm-ldap</module>
                 <module>picketlink-authorization-rs-rbac</module>
                 <module>picketlink-deltaspike-authorization</module>
+                <module>ejb-security-plus</module>
+                <module>ejb-security-propagation</module>
             </modules>
         </profile>
     </profiles>
