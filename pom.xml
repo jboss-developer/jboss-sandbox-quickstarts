@@ -155,20 +155,6 @@
                     Application Platform -->
                 <module>boms</module>
                 <module>kitchensink-angularjs-topcoat</module>
-                <module>picketlink-authentication-form</module>
-                <module>picketlink-authentication-http-basic</module>
-                <module>picketlink-authentication-http-client-cert</module>
-                <module>picketlink-authentication-http-digest</module>
-                <module>picketlink-authentication-idm-jsf</module>
-                <module>picketlink-authentication-idm-multi-tenancy</module>
-                <module>picketlink-authentication-jsf</module>
-                <module>picketlink-authentication-recaptcha</module>
-                <module>picketlink-authentication-rs-endpoint</module>
-                <module>picketlink-authentication-two-factor</module>
-                <module>picketlink-authorization-idm-jpa</module>
-                <module>picketlink-authorization-idm-ldap</module>
-                <module>picketlink-authorization-rs-rbac</module>
-                <module>picketlink-deltaspike-authorization</module>
                 <module>ejb-security-plus</module>
                 <module>ejb-security-propagation</module>
             </modules>
