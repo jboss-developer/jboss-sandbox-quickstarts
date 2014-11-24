@@ -24,7 +24,7 @@
         <version>8</version>
         <relativePath />
     </parent>
-    <groupId>org.jboss.quickstarts.eap</groupId>
+    <groupId>org.jboss.quickstarts.sandbox</groupId>
     
     <artifactId>jboss-sandbox-quickstarts-parent</artifactId>
     <version>1.0.0-build-SNAPSHOT</version>

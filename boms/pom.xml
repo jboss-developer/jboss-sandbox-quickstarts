@@ -65,7 +65,6 @@
     </properties>
 
     <modules>
-        <module>jboss-javaee-6.0-with-drools</module>
         <module>jboss-javaee-6.0-with-security</module>
     </modules>
 

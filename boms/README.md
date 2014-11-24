@@ -14,7 +14,7 @@ To use the BOM, import into your dependency management:
         <dependencies>
             <dependency>
                <groupId>org.jboss.bom.sandbox</groupId>
-               <artifactId>jboss-javaee-6.0-with-all</artifactId>
+               <artifactId>jboss-javaee-....</artifactId>
                <version>1.0.0-SNAPSHOT</version>
                <type>pom</scope>
                <scope>import</scope>

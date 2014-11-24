@@ -1,6 +1,0 @@
-Download the following files from the JBoss Customer Portal into this directory.
-
- * BRMS (brms-p-5.3.1.GA-deployable-ee6.zip)	
- * EAP (jboss-eap-6.1.0.zip)
-
-The JBoss EAP server will be installed and configured in this directory.
