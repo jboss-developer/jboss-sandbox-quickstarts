@@ -157,6 +157,7 @@
                 <module>kitchensink-angularjs-topcoat</module>
                 <module>ejb-security-plus</module>
                 <module>ejb-security-propagation</module>
+                <module>websocket-endpoint</module>
             </modules>
         </profile>
     </profiles>
