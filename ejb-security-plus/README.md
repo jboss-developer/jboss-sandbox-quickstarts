@@ -1,17 +1,18 @@
-ejb-security-plus:  Using client and server side interceptors to supply additional information for authentication before EJB calls.
+ejb-security-plus:  Use client and server side interceptors to provide authentication information before EJB calls.
 ====================
-Author: Darran Lofthouse
-Level: Advanced
-Technologies: EJB, Security
-Summary: Demonstrates how interceptors can be used to supply additional information to be used for authentication before EJB calls.
-Target Product: EAP
-Product Versions: EAP 6.1, EAP 6.2
-Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>
+Author: Darran Lofthouse  
+Level: Advanced  
+Technologies: EJB, Security, Interceptors  
+Summary: Demonstrates how to use interceptors to supply information for authentication before EJB calls in JBoss EAP.  
+Target Product: Sandbox  
+Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>  
 
 What is it?
 -----------
 
-By default, when you make a remote call to an EJB deployed to the application server, the connection to the server is authenticated and any request received over this connection is executed as the identity that authenticated the connection. The authentication at the connection level is dependent on the capabilities of the underlying SASL mechanisms.
+The `ejb-security-plus` quickstart demonstrates how to use client and server side interceptors to provide additional authentication information before making EJB calls in Red Hat JBoss Enterprise Application Platform.
+
+By default, when you make a remote call to an EJB deployed to the JBoss EAP server, the connection to the server is authenticated and any request received over this connection is executed as the identity that authenticated the connection. The authentication at the connection level is dependent on the capabilities of the underlying SASL mechanisms.
 
 Rather than writing custom SASL mechanisms or combining multiple parameters into one this quickstart demonstrates how username / password authentication can be used to open the connection to the server and subsequently supply an additional security token for authentication before the EJB invocation. This is achieved with the addition of the following three components: 
 
@@ -63,7 +64,14 @@ All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.
 Configure Maven
 ---------------
 
-If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md) before testing the quickstarts.
+If you have not yet done so, you must [Configure Maven](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CONFIGURE_MAVEN.md#configure-maven-to-build-and-deploy-the-quickstarts) before testing the quickstarts.
+
+
+Use of EAP_HOME
+---------------
+
+In the following instructions, replace `EAP_HOME` with the actual path to your JBoss EAP 6 installation. The installation path is described in detail here: [Use of EAP_HOME and JBOSS_HOME Variables](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_OF_EAP_HOME.md#use-of-eap_home-and-jboss_home-variables).
+
 
 Prerequisites
 -------------
@@ -78,25 +86,21 @@ Configure the JBoss server
 
 These steps asume that you are running the server in standalone mode and using the default standalone.xml supplied with the distribution.
 
-You can configure the security domain by running the  `configure-security-domain.cli` script provided in the root directory of this quickstart, by using the JBoss CLI interactively, or by manually editing the configuration file. The three different approaches are described below. Whichever approach you choose, it must be completed before deploying the quickstart.
+You configure the security domain by running the  `configure-security-domain.cli` script provided in the root directory of this quickstart.
 
-After the server is configured you will then need to define four user accounts, this can be achieved either by using the add-user tool included with the server or by copying and pasting the appropriate entries into the properties files.  Both of these approaches are described below and whichever approach is chosen it must be completed before running the quickstart - the users can be added before or after starting the server.
+After the server is configured you then need to define four user accounts, this can be achieved either by using the add-user tool included with the server or by copying and pasting the appropriate entries into the properties files.  Both of these approaches are described below and whichever approach is chosen it must be completed before running the quickstart - the users can be added before or after starting the server.
 
-_NOTE - Before you begin:_
+1. Before you begin, back up your server configuration file
+    * If it is running, stop the JBoss EAP server.
+    * Backup the file: `EAP_HOME/standalone/configuration/standalone-full.xml`
+    * After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+2. Start the JBoss server by typing the following: 
 
-1. If it is running, stop the JBoss server.
-2. Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
-3. After you have completed testing this quickstart, you can replace this file to restore the server to its original configuration.
+        For Linux:  EAP_HOME/bin/standalone.sh 
+        For Windows:  EAP_HOME\bin\standalone.bat
+3. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-#### Configure the Security Domain by Running the JBoss CLI Script
-
-1. Start the JBoss server by typing the following: 
-
-        For Linux:  JBOSS_HOME/bin/standalone.sh 
-        For Windows:  JBOSS_HOME\bin\standalone.bat
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
-
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
+        EAP_HOME/bin/jboss-cli.sh --connect --file=configure-security-domain.cli
 This script adds the `quickstart-domain` domain to the `security` subsystem in the server configuration and configures authentication access. You should see the following result when you run the script:
 
         #1 /subsystem=security/security-domain=quickstart-domain:add(cache-type=default)
@@ -107,33 +111,10 @@ This script adds the `quickstart-domain` domain to the `security` subsystem in t
         {"outcome" => "success"}
 
 
-### Configure the Security Domain Using the JBoss CLI Interactively
 
-1. Start the JBoss server by typing the following: 
+### Review the Modified Server Configuration
 
-		For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
-		For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
-2. To start the JBoss CLI tool, open a new command line, navigate to the JBOSS_HOME directory, and type the following:
-    
-		For Linux: bin/jboss-cli.sh --connect
-		For Windows: bin\jboss-cli.bat --connect
-3. Add a new security realm that is used by the quickstart. For this scenario the Remoting login module is no longer used, instead a custom module `SaslPlusLoginModule` is used instead to perform authentication based on the authenticated user of the connection AND the supplied authentication token.  The `RealmDirect` login module is last in the configuration so that roles can be loaded after the user has been verified. At the prompt, enter the following series of commands:
-
-		[standalone@localhost:9999 /] ./subsystem=security/security-domain=quickstart-domain:add(cache-type=default)
-		[standalone@localhost:9999 /] ./subsystem=security/security-domain=quickstart-domain/authentication=classic:add
-		[standalone@localhost:9999 /] ./subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=DelegationLoginModule:add(code=org.jboss.as.quickstarts.ejb_security_plus.SaslPlusLoginModule,flag=optional,module-options={password-stacking=useFirstPass})    
-		[standalone@localhost:9999 /] ./subsystem=security/security-domain=quickstart-domain/authentication=classic/login-module=RealmDirect:add(code=RealmDirect,flag=required,module-options={password-stacking=useFirstPass})
-		
-		[standalone@localhost:9999 /] :reload
-
-Finally, restart the server to pick up these changes.
-
-### Configure the Security Domain by Manually Editing the Server Configuration File
-
-1.  If it is running, stop the JBoss server.
-2.  Backup the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
-3.  Open the file: `JBOSS_HOME/standalone/configuration/standalone.xml`
-4.  Make the additions described below.
+After stopping the server, open the `EAP_HOME/standalone/configuration/standalone.xml` file and review the changes.
 
 The EJB side of this quickstart makes use of a new security domain called `quickstart-domain`, which delegates to the `ApplicationRealm`. In order to support identity switching we use the `SaslPlusLoginModule` from this quickstart.
 
@@ -173,7 +154,8 @@ This quickstart is built around the default `ApplicationRealm` as configured in 
 
 This user is used to both connect to the server and is used for the actual EJB invocation.
 
-For an example of how to use the add-user utility, see instructions in the root README file located here: [Add User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md).
+For an example of how to use the add-user utility, see the instructions located here: [Add an Application User](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/CREATE_USERS.md#add-an-application-user).
+
 
 ### Add Users Manually
 
@@ -196,14 +178,14 @@ Start the JBoss Server
 1. Open a command line and navigate to the root of the JBoss server directory.
 2. The following shows the command line to start the server:
 
-		For Linux:   JBOSS_HOME/bin/standalone.sh
-		For Windows: JBOSS_HOME\bin\standalone.bat
+		For Linux:   EAP_HOME/bin/standalone.sh
+		For Windows: EAP_HOME\bin\standalone.bat
 
 
 Build and Deploy the Quickstart
 -------------------------
 
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](https://github.com/jboss-developer/jboss-eap-quickstarts#build-and-deploy-the-quickstarts) for complete instructions and additional options._
+_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/BUILD_AND_DEPLOY.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
 
 1. Make sure you have started the JBoss Server as described above.
 2. Open a command line and navigate to the root directory of this quickstart.
@@ -265,11 +247,11 @@ You can remove the security domain configuration by running the  `remove-securit
 
 1. Start the JBoss server by typing the following: 
 
-        For Linux:  JBOSS_HOME_SERVER_1/bin/standalone.sh
-        For Windows:  JBOSS_HOME_SERVER_1\bin\standalone.bat
-2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing JBOSS_HOME with the path to your server:
+        For Linux:  EAP_HOME_SERVER_1/bin/standalone.sh
+        For Windows:  EAP_HOME_SERVER_1\bin\standalone.bat
+2. Open a new command line, navigate to the root directory of this quickstart, and run the following command, replacing EAP_HOME with the path to your server:
 
-        JBOSS_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
+        EAP_HOME/bin/jboss-cli.sh --connect --file=remove-security-domain.cli 
 This script removes the `test` queue from the `messaging` subsystem in the server configuration. You should see the following result when you run the script:
 
         #1 /subsystem=security/security-domain=quickstart-domain:remove
@@ -279,20 +261,20 @@ This script removes the `test` queue from the `messaging` subsystem in the serve
 
 ### Remove the Security Domain Configuration Manually
 1. If it is running, stop the JBoss server.
-2. Replace the `JBOSS_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
+2. Replace the `EAP_HOME/standalone/configuration/standalone.xml` file with the back-up copy of the file.
 
 
 
-Run the Quickstart in JBoss Developer Studio or Eclipse
+Run the Quickstart in Red Hat JBoss Developer Studio or Eclipse
 -------------------------------------
 
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JDBS.md) 
+You can also start the server and deploy the quickstarts or run the Arquillian tests from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](https://github.com/jboss-developer/jboss-developer-shared-resources/blob/master/guides/USE_JBDS.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
 
 
 Debug the Application
 ------------------------------------
 
-If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
+If you want to debug the source code of any library in the project, run the following command to pull the source into your local repository. The IDE should then detect it.
 
-	mvn dependency:sources
-	mvn dependency:resolve -Dclassifier=javadoc
+    mvn dependency:sources
+   	
