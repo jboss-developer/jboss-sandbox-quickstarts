@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     JBoss, Home of Professional Open Source
-    Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
+    Copyright 2014, Red Hat, Inc. and/or its affiliates, and individual
     contributors by the @authors tag. See the copyright.txt in the
     distribution for a full listing of individual contributors.
 
@@ -15,15 +15,14 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstarts.sandbox</groupId>
-    <artifactId>jboss-managedexecutorservice</artifactId>
-    <version>1.0.0-build-SNAPSHOT</version>
+    <artifactId>jboss-jsonp</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>JBoss Sandbox Quickstart: jboss-managedexecutorservice</name>
+    <name>JBoss Sandbox Quickstart: jsonp</name>
     <description>A starter Java EE 7 webapp project for use on JBoss WildFly / WildFly, generated from the jboss-javaee6-webapp archetype</description>
 
     <url>http://wildfly.org</url>
@@ -48,7 +47,6 @@
         <!-- Define the version of the JBoss BOMs we want to import to specify 
             tested stacks. -->
         <version.jboss.bom>8.2.1.Final</version.jboss.bom>
-        <version.resteasy>3.0.10.Final</version.resteasy>
 
         <!-- other plugin versions -->
         <version.surefire.plugin>2.16</version.surefire.plugin>
@@ -67,27 +65,11 @@
                 of artifacts. We use this here so that we always get the correct versions 
                 of artifacts. Here we use the jboss-javaee-7.0-with-tools stack (you can
                 read this as the JBoss stack of the Java EE 7 APIs, with some extras tools
-                for your project, such as Arquillian for testing) and the jboss-javaee-7.0-with-hibernate
-                stack you can read this as the JBoss stack of the Java EE 7 APIs, with extras
-                from the Hibernate family of projects) -->
+                for your project, such as Arquillian for testing). -->
             <dependency>
                 <groupId>org.wildfly.bom</groupId>
                 <artifactId>jboss-javaee-7.0-with-tools</artifactId>
                 <version>${version.jboss.bom}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.wildfly.bom</groupId>
-                <artifactId>jboss-javaee-7.0-with-hibernate</artifactId>
-                <version>${version.jboss.bom}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.resteasy</groupId>
-                <artifactId>resteasy-bom</artifactId>
-                <version>${version.resteasy}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -98,25 +80,13 @@
 
         <!-- First declare the APIs we depend on and need for compilation. All 
             of them are provided by JBoss WildFly -->
-
-        <!-- Provides access to Concurrency API, we use provided scope as the API is included in 
-            JBoss WildFly -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.enterprise.concurrent</groupId>
-            <artifactId>jboss-concurrency-api_1.0_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        
-
-        <!--  Provides access to UserTransaction, we use provided scope as the API is included in 
-            JBoss WildFly -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.transaction</groupId>
-            <artifactId>jboss-transaction-api_1.2_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
             
+        <!--  Use JSON do parse messages from websocket , we use provided scope as the API is included in JBoss WildFly -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.json</groupId>
+            <artifactId>jboss-json-api_1.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- Import the CDI API, we use provided scope as the API is included in 
             JBoss WildFly -->
@@ -158,20 +128,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JSR-303 (Bean Validation) Implementation -->
-        <!-- Provides portable constraints such as @Email -->
-        <!-- Hibernate Validator is shipped in JBoss WildFly -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
 
         <!-- Import the JSF API, we use provided scope as the API is included in 
             JBoss WildFly -->
@@ -183,21 +139,6 @@
 
         <!-- Now we declare any tools needed -->
 
-        <!-- Annotation processor to generate the JPA 2.0 metamodel classes for 
-            typesafe criteria queries -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Annotation processor that raising compilation errors whenever constraint 
-            annotations are incorrectly used. -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator-annotation-processor</artifactId>
-            <scope>provided</scope>
-        </dependency>
 
         <!-- Needed for running tests (you may also use TestNG) -->
         <dependency>
@@ -218,19 +159,6 @@
         <dependency>
             <groupId>org.jboss.arquillian.protocol</groupId>
             <artifactId>arquillian-protocol-servlet</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
-        <!-- Import the RestEasy Client and Jackson provider, we use test scope as we need that for test purposes -->
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-client</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson-provider</artifactId>
             <scope>test</scope>
         </dependency>
 
@@ -283,16 +211,53 @@
         </profile>
 
         <profile>
-            <!-- An optional testing profile that executes JAX-RS Client API tests  -->
-            <!-- Run with: mvn clean test -Prest-client -->
-            <id>rest-test</id>
+
+            <!-- An optional Arquillian testing profile that executes tests
+                in your WildFly instance -->
+            <!-- This profile will start a new WildFly instance, and execute the
+                test, shutting it down when done -->
+            <!-- Run with: mvn clean test -Parq-wildfly-managed -->
+            <id>arq-wildfly-managed</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <!-- An optional Arquillian testing profile that executes tests
+                in a remote WildFly instance -->
+            <!-- Run with: mvn clean test -Parq-wildfly-remote -->
+            <id>arq-wildfly-remote</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-remote</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+
+        <profile>
+            <!-- When built in OpenShift the 'openshift' profile will be used when 
+                invoking mvn. -->
+            <!-- Use this profile for any OpenShift specific customization your app 
+                will need. -->
+            <!-- By default that is to put the resulting archive into the 'deployments' 
+                folder. -->
+            <!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+            <id>openshift</id>
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${version.surefire.plugin}</version>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>${version.war.plugin}</version>
                         <configuration>
-                            <skip>false</skip>
+                            <outputDirectory>deployments</outputDirectory>
+                            <warName>ROOT</warName>
                         </configuration>
                     </plugin>
                 </plugins>

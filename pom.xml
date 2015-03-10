@@ -152,11 +152,14 @@
             </activation>
             <modules>
                 <!-- All the modules that require nothing but JBoss Enterprise
-                    Application Platform -->
+                    Application Platform or WildFly -->
                 <module>boms</module>
-                <module>kitchensink-angularjs-topcoat</module>
                 <module>ejb-security-plus</module>
                 <module>ejb-security-propagation</module>
+                <module>jaxrs-client</module>
+                <module>jsonp</module>
+                <module>kitchensink-angularjs-topcoat</module>
+                <module>managedexecutorservice</module>
                 <module>websocket-endpoint</module>
             </modules>
         </profile>
