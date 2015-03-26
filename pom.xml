@@ -101,41 +101,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>${version.com.mycyla.license}</version>
-                <configuration>
-                    <header>${basedir}/dist/license.txt</header>
-                    <aggregate>true</aggregate>
-                    <strictCheck>true</strictCheck>
-                    <excludes>
-                        <exclude>target/**</exclude>
-                        <exclude>.clover/**</exclude>
-                        <exclude>**/*.sql</exclude>
-                        <exclude>**/LICENSE*</exclude>
-                        <exclude>>**/license*</exclude>
-                        <!-- Exclude specific Quickstarts -->
-                        <exclude>petclinic-spring/**</exclude>
-                        <!-- Javascrip Libraries -->
-                        <exclude>**/jquery*</exclude>
-                        <exclude>**/angular*</exclude>
-                        <exclude>**/qunit*</exclude>
-                        <exclude>**/backbone*</exclude>
-                        <exclude>**/lodash*</exclude>
-                        <exclude>**/modernizr*</exclude>
-                        <exclude>**/yepnope*</exclude>
-                        <exclude>**/mobile-nav*</exclude>
-                        <!--Other libraries -->
-                        <exclude>**/*glyphicons*/**</exclude>
-                        <exclude>**/*cordova*/**</exclude>
-                    </excludes>
-                    <encoding>UTF-8</encoding>
-                    <headerDefinitions>
-                        <headerDefinition>dist/headerdefinition.xml</headerDefinition>
-                    </headerDefinitions>
-                </configuration>
-              </plugin>
         </plugins>
     </build>
 
@@ -154,6 +119,7 @@
                 <!-- All the modules that require nothing but JBoss Enterprise
                     Application Platform or WildFly -->
                 <module>boms</module>
+                <module>batch-processing</module>
                 <module>ejb-security-plus</module>
                 <module>ejb-security-propagation</module>
                 <module>jaxrs-client</module>
