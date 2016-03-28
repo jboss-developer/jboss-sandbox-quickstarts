@@ -3,9 +3,9 @@ jsonp: JSON-P Object-based JSON generation and Stream-based JSON consuming
 Author: Rafael Benevides  
 Level: Beginner  
 Technologies: CDI, JSF, JSON-P  
-Summary: This 
+Summary: This quickstart demonstrates how to use the JSON-P API to produce object-based structures and then parse and consume them as stream-based JSON strings.
 Prerequisites: This Quickstarts creates a JSON string through Object-based JSON generation and them parses it using Stream-based JSON consuming.  
-Target Product: Sandbox
+Target Product: Sandbox  
 Source: <https://github.com/jboss-developer/jboss-sandbox-quickstarts>  
 
 
