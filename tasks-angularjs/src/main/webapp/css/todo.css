@@ -1,0 +1,167 @@
+body {
+  background: #2D3640;
+}
+
+h1 {
+  color:#fff;
+}
+
+#content {
+  max-width:800px;
+  margin:0 auto;
+}
+
+.completed {
+  color: #33aa66;
+}
+
+/*
+  Hide radio button (the round disc)
+  we will use just the label to create pushbutton effect
+*/
+.display-controls input[type=radio] {
+    display:none; 
+    margin:10px;
+}
+
+.display-controls label{
+    padding-left: 7px;
+    color:#232930;
+}
+  .display-controls span.number-left {
+    background: #2D3640;   
+    color:#fff;
+    padding: 3px 7px;
+    border-radius: 5px;
+    margin-right: 3px;
+  }
+ 
+/*
+ Change the font weight for the checked element
+*/
+
+.display-controls input[type=radio]:checked + label{ 
+   font-weight: bold;
+}
+
+.help {
+  font-size: x-small;
+  color: grey;
+  text-align:center;
+}
+
+.notepad {
+  font-size: large;`
+  width:100%;
+  border: 20px solid #232930;
+  width: 100%;
+  float: left;
+  border-radius: 10px;
+  padding: 20px;
+  background: #f6f9fa;
+  border-radius: 10px;
+}
+
+.notepad ul {
+  list-style:none;
+  margin: 0;
+}
+
+
+.notepad ul li {
+  background:#fff;
+  margin: 10px 0 0 0;
+  clear:both;
+  float:left;
+  width:100%;
+  min-height:20px;
+  border-radius:5px;
+  padding:10px;
+  box-shadow: 0 2px 1px rgba(204, 204, 204, 0.47);
+  border: 1px solid rgba(204, 204, 204, 0.31);
+}
+  .notepad ul li.completed {
+    background: #F3F3F3;
+    opacity: 5.5;
+    box-shadow: none;
+    }
+  
+  .notepad ul li.completed span {
+    text-decoration: line-through;
+  }
+
+.notepad-margin {
+  width:5%;
+  float:left;
+}
+  .notepad-margin i {
+    cursor:pointer;
+  }
+
+.notepad-main {
+  width:95%;
+  float:left;
+}
+.new-task form {
+  margin-bottom: 0px;
+  margin-top:10px;
+}
+
+.edit-task form {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+.items-remaining, .items-filter {
+  padding:0;
+  font-size:12px;
+}
+
+.notepad td {
+  padding-left: 10px;
+  background-position: left bottom;
+    nackground-repeat: no-repeat;
+    padding-bottom:8px;
+}
+
+.notepad input {
+  min-width: 300px;
+  border: 0px;
+  box-shadow: 0px 0px 0px 0px;
+  outline: none;
+  vertical-align: bottom;
+  font-size: large;
+}
+
+.new-task input {
+  font-size: x-large;
+  min-height: 30px;
+}
+
+.show-task {
+  padding-top:1px;
+}
+
+.edit-task input {
+  margin-bottom: 0px;
+  padding: 0px;
+}
+
+input:focus:invalid:focus, input[type="text"]:focus {
+  border: 0px;
+  box-shadow: 0px 0px 0px 0px;
+  outline: 0px;
+}
+
+
+/* Media Queries for responsive version */
+
+@media (max-width: 800px) {
+  body {
+    margin:0;
+    padding:0;
+  }
+  .row {
+    margin:0;
+  }
+}
